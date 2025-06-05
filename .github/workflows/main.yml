@@ -1,0 +1,14 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        run: echo "Hello World"
