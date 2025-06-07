@@ -8,7 +8,12 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Repository auschecken
         run: echo "Hello World"
+  jobnumber2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sdfsdfsdf
+        run: echo "Bubale Bub"
+  
