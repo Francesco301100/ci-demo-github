@@ -14,3 +14,13 @@ jobs:
 
       - name: Datei anzeigen
         run: cat backend/src/main/java/org/example/backend/BackendApplication.java
+
+  sshow-backendapplication:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v3
+
+      - name: Datei anzeigen
+        run: cat backend/src/main/java/org/example/backend/BackendApplication.java
+
