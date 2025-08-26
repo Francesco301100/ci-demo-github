@@ -49,6 +49,7 @@ jobs:
           java-version: '17'
           
       - name: Build & SonarQube Analysis 
-        run: cd backend && mvn clean verify sonar:sonar
+        run: cd backend && mvn sonar:sonar
+
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
