@@ -107,8 +107,8 @@ jobs:
           secure: true
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          from: "francescomnm@gmail.com"
-          to: "hmgptchat@gmail.com"
+          from: ${{ secrets.EMAIL_FROM }}
+          to: ${{ secrets.EMAIL_TO}}
           subject: "Fehlgeschlagen: ${{ github.repository }}"
           body: "Die Pipeline ist fehlgeschlagen"
 
