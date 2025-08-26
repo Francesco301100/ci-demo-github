@@ -3,12 +3,42 @@ on:
     branches: [ "main" ]
 
 env:
-  IMAGE_NAME_BACKEND: simonettifr/backend
-  IMAGE_NAME_FRONTEND: simonettifr/frontend
+  IMAGE_NAME_BACKEND: simonettifr/backend1
+  IMAGE_NAME_FRONTEND: simonettifr/frontend1
 
 jobs:
+  backend_test:
+    runs-on: ubuntu-latest
+    container: maven:3.9-eclipse-temurin-17
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd backend && mvn -B clean test
+
+  frontend_test:
+    runs-on: ubuntu-latest
+    container: node:20
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd frontend && npm ci && npm run test
+
+  sonar:
+    runs-on: ubuntu-latest
+    needs: backend_test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: cd backend && mvn -B clean verify sonar:sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   docker_backend:
     runs-on: ubuntu-latest
+    needs: sonar
     permissions:
       contents: read
     steps:
@@ -23,6 +53,7 @@ jobs:
 
   docker_frontend:
     runs-on: ubuntu-latest
+    needs: frontend_test
     permissions:
       contents: read
     steps:
