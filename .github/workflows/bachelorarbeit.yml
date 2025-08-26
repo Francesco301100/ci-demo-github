@@ -12,7 +12,7 @@ jobs:
     container: maven:3.9-eclipse-temurin-17
     steps:
       - uses: actions/checkout@v4
-      - run: cd backend && mv -B package -DskipTests
+      - run: cd backend && mvn -B package -DskipTests
 
   frontend_build:
     runs-on: ubuntu-latest
