@@ -81,3 +81,22 @@ jobs:
       - run: |
           docker build -t $IMAGE_NAME_FRONTEND:latest ./frontend
           docker push $IMAGE_NAME_FRONTEND:latest
+
+  benachrichtigung:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: [backend_build, frontend_build, backend_test, frontend_test, sonar, docker_backend, docker_frontend]
+    steps:
+      - uses: dawidd6/action-send-mail@v6
+        if: ${{ contains(needs.*.result, 'failure') }}
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          from: "francescomnm@gmail.com"
+          to: "hmgptchat@gmail.com"
+          subject: "Fehlgeschlagen: ${{ github.repository }}"
+          body: "Die Pipeline ist fehlgeschlagen"
+
