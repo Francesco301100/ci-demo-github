@@ -3,8 +3,8 @@ on:
     branches: [ "main" ]
 
 env:
-  IMAGE_NAME_BACKEND: simonettifr/backend1
-  IMAGE_NAME_FRONTEND: simonettifr/frontend1
+  IMAGE_NAME_BACKEND: simonettifr/backend
+  IMAGE_NAME_FRONTEND: simonettifr/frontend
 
 jobs:
   backend_build:
