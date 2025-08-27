@@ -39,18 +39,16 @@ jobs:
 
   sonar_backend:
     runs-on: ubuntu-latest
+    container: maven:3.9-eclipse-temurin-17
     needs: backend_test
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-      - run: cd backend && mvn -B clean verify sonar:sonar
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Sonar (Maven)
+    - run: cd backend && mvn -B clean verify sonar:sonar
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   sonar_frontend:
     name: SonarQube
