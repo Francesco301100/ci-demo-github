@@ -45,7 +45,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: Sonar (Maven)
     - run: cd backend && mvn -B clean verify sonar:sonar
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
